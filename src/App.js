@@ -2,6 +2,7 @@
 import React, { Component } from 'react';
 import data from './data.json';
 import Products from './components/Products';
+import Filter from './components/Filter';
 
 class App extends Component {
   constructor() {
@@ -13,6 +14,10 @@ class App extends Component {
     }
   }
 
+  sortProducts = () => {
+
+  }
+
   render() {
     return (
       <div className='grid-container'>
@@ -22,7 +27,14 @@ class App extends Component {
         <main>
           <div className="content">
             <div className="main">
-              <Products products={this.state.products}/>
+              <Filter
+                count={this.state.products.length}
+                size={this.state.size}
+                sort={this.state.sort}
+                filterProducts={this.filterProducts}
+                sortProducts={this.sortProducts}
+                ></Filter>
+              <Products products={this.state.products} />
             </div>
             <div className="sidebar">
               Cart Items
