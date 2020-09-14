@@ -10,10 +10,14 @@ class App extends Component {
     super();
     this.state = {
       products: data.products,
-      cartItems: [],
+      cartItems: localStorage.getItem("cartItems") ? JSON.parse(localStorage.getItem("cartItems")) : [],
       size: '',
       sort: ''
     }
+  }
+
+  createOrder = (order) => {
+    alert("Need to save order for: " + order.name)
   }
 
   changeChandler = (event) => {
@@ -21,11 +25,11 @@ class App extends Component {
   }
 
   removeFromCart = (product) => {
-    const cartItems = this.state.cartItems.slice();
+    const updatedCartItems = this.state.cartItems.slice().filter(item => item._id !== product._id);
     this.setState({
-      cartItems: cartItems.filter(item => item._id !== product._id)
-    })
-
+      cartItems: updatedCartItems
+    });
+    localStorage.setItem("cartItems", JSON.stringify(updatedCartItems));
   }
 
   addToCart = (product) => {
@@ -42,7 +46,8 @@ class App extends Component {
     }
     this.setState({
       cartItems: cartItems
-    })
+    });
+    localStorage.setItem("cartItems", JSON.stringify(cartItems));
   }
 
   sortProducts = (event) => {
@@ -57,7 +62,7 @@ class App extends Component {
             ((a.price < b.price) ? 1 : -1) :
             ((a._id < b._id) ? 1 : -1)
       ))
-    }))
+    }));
   }
 
   filterProducts = (event) => {
@@ -70,7 +75,7 @@ class App extends Component {
       this.setState({
         size: event.target.value,
         products: data.products.filter(product => product.availableSizes.indexOf(event.target.value) >= 0)
-      })
+      });
     }
   }
 
@@ -93,11 +98,13 @@ class App extends Component {
               <Products
                 products={this.state.products}
                 addToCart={this.addToCart}
-                
               />
             </div>
             <div className="sidebar">
-              <Cart cartItems={this.state.cartItems} removeFromCart={this.removeFromCart} />
+              <Cart
+                cartItems={this.state.cartItems}
+                removeFromCart={this.removeFromCart} 
+                createOrder={this.createOrder}/>
             </div>
           </div>
         </main>
