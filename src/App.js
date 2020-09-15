@@ -17,11 +17,11 @@ class App extends Component {
   }
 
   createOrder = (order) => {
-    alert("Need to save order for: " + order.name)
+    alert("Need to save order for: " + order.name);
   }
 
   changeChandler = (event) => {
-    console.log('testin gevent', event.target.value)
+    console.log('testin gevent', event.target.value);
   }
 
   removeFromCart = (product) => {
