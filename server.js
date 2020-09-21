@@ -15,13 +15,14 @@ mongoose.connect('mongodb+srv://michal:Listopad2015@cluster0-ew9fu.mongodb.net/s
 
 const Product = mongoose.model('products', new mongoose.Schema({
     // _id: { type: shortid.generate() },
+    image: String,
     title: String,
     description: String,
-    image: String,
-    price: Number,
-    availableSizes: [String]
-
+    availableSizes: [String],
+    price: Number
 }))
+
+app.use(bodyParser.json());
 
 app.get('/api/products', async (req, res, next) => {
     const products = await Product.find({});
@@ -30,6 +31,7 @@ app.get('/api/products', async (req, res, next) => {
 
 app.post('/api/products', async (req, res, next) => {
     const newProduct = new Product(req.body);
+    console.log(req.body)
     const savedProduct = await newProduct.save();
     res.send(savedProduct);
 })
