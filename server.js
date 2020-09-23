@@ -1,7 +1,7 @@
 const express = require("express");
 const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
-const shortid = require("shortid");
+// const shortid = require("shortid");
 
 const app = express();
 
@@ -9,7 +9,7 @@ mongoose.connect('mongodb+srv://michal:Listopad2015@cluster0-ew9fu.mongodb.net/s
     useNewUrlParser: true,
     useCreateIndex: true,
     useUnifiedTopology: true,
-}).then(response => {
+}).then(() => {
     console.log('dataBase connected')
 }).catch(err => console.log(err));
 
