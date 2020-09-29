@@ -11,3 +11,10 @@ export const fetchProducts = () => async (dispatch) => {
 
 
 }
+
+
+export const addProduct = () => {
+    return {
+        
+    }
+}
